@@ -72,6 +72,10 @@ module ElasticAPM
             if context.links && !context.links.empty?
               base[:links] = build_links(context.links)
             end
+  
+            if context.service
+              base[:service] = build_service(context.service)
+            end
 
             base
           end
@@ -131,6 +135,15 @@ module ElasticAPM
               links: links.map do |link|
                 {"trace_id" => link.trace_id, "span_id" => link.span_id}
               end
+            }
+          end
+
+          def build_service(service)
+            {
+              target: {
+                name: keyword_field(service.target&.name),
+                type: keyword_field(service.target&.type)
+              }
             }
           end
         end
