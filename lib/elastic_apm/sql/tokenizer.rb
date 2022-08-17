@@ -110,7 +110,7 @@ module ElasticAPM
             next next_char
           end
 
-          next next_char if ALPHA.match?(peek)
+          next next_char if ALPHA =~ peek
 
           break
         end
